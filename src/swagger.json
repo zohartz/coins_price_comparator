@@ -1,0 +1,71 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "coins compare",
+    "description": "coins compare "
+  },
+  "tags": [
+    {
+      "name": "Coins",
+      "description": "Info on Coins Prices"
+    }
+  ],
+  "servers": [
+    {
+      "description": "local",
+      "url": "/api/v1"
+    }
+  ],
+  "paths": {
+    "/coins": {
+      "get": {
+        "tags": ["Coins"],
+        "summary": "Get coins history price compare",
+        "parameters": [
+          {
+            "name": "coinsList",
+            "description": "coinsList",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/coinsList"
+            }
+          },
+          {
+            "name": "date",
+            "description": "date to compare",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal service error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{2}/\\d{2}/\\d{4}",
+      "Example": "02/01/2019"
+    },
+    "coinsList": {
+      "type": "string",
+      "pattern": "[a-zA-Z]+(,[a-zA-Z]+)*",
+      "Example": "BTC,ETH,BNB"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+version: '3'
+services:
+    coins_price_comparator:
+        build: ./
+        ports:
+            - 5001:5001
+        volumes:
+            - .:/app 
+        networks:
+            default:
+
+networks:
+    default:
