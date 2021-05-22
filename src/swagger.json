@@ -2,8 +2,8 @@
   "openapi": "3.0.1",
   "info": {
     "version": "1.0.0",
-    "title": "coins compare",
-    "description": "coins compare "
+    "title": "Crypto coins info",
+    "description": "API for crypto coins info"
   },
   "tags": [
     {
@@ -25,9 +25,10 @@
         "parameters": [
           {
             "name": "coinsList",
-            "description": "coinsList",
+            "description": "string of coins separated by comma ",
             "in": "path",
             "required": true,
+            "example":"BTC,ETH,BNB",
             "schema": {
               "$ref": "#/definitions/coinsList"
             }
@@ -37,6 +38,7 @@
             "description": "date to compare",
             "in": "path",
             "required": true,
+            "example": "02/01/2019",
             "schema": {
               "$ref": "#/definitions/date"
             }
@@ -60,12 +62,12 @@
     "date": {
       "type": "string",
       "pattern": "^\\d{2}/\\d{2}/\\d{4}",
-      "Example": "02/01/2019"
+      "example": "02/01/2019"
     },
     "coinsList": {
       "type": "string",
       "pattern": "[a-zA-Z]+(,[a-zA-Z]+)*",
-      "Example": "BTC,ETH,BNB"
+      "example": "BTC,ETH,BNB"
     }
   }
 }

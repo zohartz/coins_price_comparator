@@ -6,29 +6,29 @@ const baseURL = "https://min-api.cryptocompare.com/data/";
 class CoinsService {
   constructor() {}
 
-  getPrices = async (coinsList, date) => {
+  comparePrices = async (coinsList, date) => {
     try {
       const coins = coinsList.split(",");
       const timestamp = new Date(date).valueOf();
       const headers = { authorization: `Apikey ${apiKey}` };
-      const final = [];
+      const finalComparison = [];
       const currentPrices = await this.getCurrentPrices(coinsList, headers);
-      const historyPrice = await this.getHistoryPrices(
+      const historyPrices = await this.getHistoryPrices(
         coins,
         headers,
         timestamp
       );
       for (const item in currentPrices) {
-        if (historyPrice[item]) {
+        if (historyPrices[item]) {
           const current = currentPrices[item].USD;
-          const history = historyPrice[item].USD;
+          const history = historyPrices[item].USD;
           const diff = `${(current / history - 1) * 100}%`;
-          final.push({ [item]: diff });
+          finalComparison.push({ [item]: diff });
         } else {
-          final.push({ [item]: "no result found" });
+          finalComparison.push({ [item]: "no result found" });
         }
       }
-      return final;
+      return finalComparison;
     } catch (error) {
       throw new Error(error);
     }
@@ -36,8 +36,7 @@ class CoinsService {
 
   getCurrentPrices = async (coinsList, headers) => {
     const currentPricesUrl = `pricemulti?fsyms=${coinsList}&tsyms=USD`;
-    const currentPrices = await fetchData(baseURL, currentPricesUrl, headers);
-    return currentPrices;
+    return await fetchData(baseURL, currentPricesUrl, headers);
   };
 
   getHistoryPrices = async (coins, headers, timestamp) => {

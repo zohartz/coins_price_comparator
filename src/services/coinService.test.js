@@ -6,7 +6,7 @@ const CoinsService = require("./coinsService");
 const coinsService = new CoinsService();
 
 describe("coinsService", () => {
-  describe("getPrices", () => {
+  describe("comparePrices test", () => {
     let getHistoryPricesStub, getCurrentPricesStub;
     const date = "02/01/2021";
 
@@ -60,7 +60,7 @@ describe("coinsService", () => {
       const coinsList = "BTC,ETH,BNB";
       getHistoryPricesStub.returns(historyPriceStub);
       getCurrentPricesStub.returns(currentPricesStub);
-      const result = await coinsService.getPrices(coinsList, date);
+      const result = await coinsService.comparePrices(coinsList, date);
       sinon.assert.calledOnce(getHistoryPricesStub);
       sinon.assert.calledOnce(getCurrentPricesStub);
       assert.deepEqual(result, resultStub);
@@ -97,7 +97,7 @@ describe("coinsService", () => {
       const coinsList = "BTC,ETH,NOT-VALID-COIN";
       getHistoryPricesStub.returns(historyPriceStub);
       getCurrentPricesStub.returns(currentPricesStub);
-      const result = await coinsService.getPrices(coinsList, date);
+      const result = await coinsService.comparePrices(coinsList, date);
       sinon.assert.calledOnce(getHistoryPricesStub);
       sinon.assert.calledOnce(getCurrentPricesStub);
       assert.deepEqual(result, resultStub);
